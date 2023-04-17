@@ -11,7 +11,9 @@ import {
   faPlusSquare,
   faUndo
 } from "@fortawesome/free-solid-svg-icons";
+import MyToast from './MyToast';
 export default function AddMovie() {
+    const [showToast, setShowToast] = useState(false)
     const inital_state = {
         movie_name:'',
         movie_cast: '',
@@ -90,7 +92,10 @@ export default function AddMovie() {
                 if(response.data != null){
                     // console.log(response)
                     setFormData(inital_state)
-                    alert("Movie saved successfully")
+                    setShowToast(true);
+                    setInterval(() =>{
+                        setShowToast(false)
+                    }, 2000)
                 }
             })
     }
@@ -110,111 +115,120 @@ export default function AddMovie() {
         setFormData(inital_state)
     }
   return (
-    <Card className='mt-5 border border-light bg-light text-black'>
-        <Card.Header><FontAwesomeIcon icon={faPlusSquare} /> Add Movie</Card.Header>
-        <Form onReset={resetMovie} onSubmit={ submitMovie} id="movieForm">
-        <Card.Body>
-                
-                    <Form.Group className="mb-3" controlId='formMovieName'>
-                        <Form.Label>Movie Name</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="text" 
-                            name='movie_name'
-                            value={formData.movie_name}
-                            onChange = {movieChange} 
-                            placeholder="movie name" />
-                        
-                    </Form.Group>
+    <div>
+        <div style={{ display: showToast ? "block" : "none" }}>
+        <MyToast 
+          show = {showToast}
+          message = { "Logged In successfully. "}
+          type = {"success"}
+        />
+      </div>
+        <Card className='mt-5 border border-light bg-light text-black'>
+            <Card.Header><FontAwesomeIcon icon={faPlusSquare} /> Add Movie</Card.Header>
+            <Form onReset={resetMovie} onSubmit={ submitMovie} id="movieForm">
+            <Card.Body>
+                    
+                        <Form.Group className="mb-3" controlId='formMovieName'>
+                            <Form.Label>Movie Name</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="text" 
+                                name='movie_name'
+                                value={formData.movie_name}
+                                onChange = {movieChange} 
+                                placeholder="movie name" />
+                            
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieCast'>
-                        <Form.Label>Movie Cast</Form.Label>
-                        <Form.Control  autoComplete='off'
-                            type="text" 
-                            name='movie_cast' 
-                            value={formData.movie_cast}
-                            onChange = {movieChange} 
-                            placeholder="Cast" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieCast'>
+                            <Form.Label>Movie Cast</Form.Label>
+                            <Form.Control  autoComplete='off'
+                                type="text" 
+                                name='movie_cast' 
+                                value={formData.movie_cast}
+                                onChange = {movieChange} 
+                                placeholder="Cast" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieRating'>
-                        <Form.Label>Movie Rating</Form.Label>
-                        <Form.Control autoComplete='off'
-                            type="text" 
-                            name='movie_rating'
-                            value={formData.movie_rating}
-                            onChange = {movieChange}  
-                            placeholder="Rating" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieRating'>
+                            <Form.Label>Movie Rating</Form.Label>
+                            <Form.Control autoComplete='off'
+                                type="text" 
+                                name='movie_rating'
+                                value={formData.movie_rating}
+                                onChange = {movieChange}  
+                                placeholder="Rating" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieGenre'>
-                        <Form.Label>Movie Genre</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="text" 
-                            name='movie_genre'
-                            value={formData.movie_genre}
-                            onChange = {movieChange}  
-                            placeholder="Genre" />
-                    </Form.Group>
-                
-                    <Form.Group className="mb-3" controlId='formMovieLanguage'>
-                        <Form.Label>Movie Language</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="text" 
-                            name='movie_language'
-                            value={formData.movie_language}
-                            onChange = {movieChange}  
-                            placeholder="Language" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieGenre'>
+                            <Form.Label>Movie Genre</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="text" 
+                                name='movie_genre'
+                                value={formData.movie_genre}
+                                onChange = {movieChange}  
+                                placeholder="Genre" />
+                        </Form.Group>
+                    
+                        <Form.Group className="mb-3" controlId='formMovieLanguage'>
+                            <Form.Label>Movie Language</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="text" 
+                                name='movie_language'
+                                value={formData.movie_language}
+                                onChange = {movieChange}  
+                                placeholder="Language" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieDescription'>
-                        <Form.Label>Movie Description</Form.Label>
-                        <Form.Control autoComplete='off'
-                            type="text" 
-                            name='description'
-                            value={formData.description}
-                            onChange = {movieChange}  
-                            placeholder="description" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieDescription'>
+                            <Form.Label>Movie Description</Form.Label>
+                            <Form.Control autoComplete='off'
+                                type="text" 
+                                name='description'
+                                value={formData.description}
+                                onChange = {movieChange}  
+                                placeholder="description" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieReleaseDate'>
-                        <Form.Label>Movie Release Date</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="date" 
-                            name='release_date'
-                            value={formData.release_date}
-                            onChange = {movieChange}   
-                            placeholder="Release Date" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieReleaseDate'>
+                            <Form.Label>Movie Release Date</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="date" 
+                                name='release_date'
+                                value={formData.release_date}
+                                onChange = {movieChange}   
+                                placeholder="Release Date" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieDuration'>
-                        <Form.Label>Movie Duration</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="text" 
-                            name='duration' 
-                            value={formData.duration}
-                            onChange = {movieChange} 
-                            placeholder="Duration" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId='formMovieDuration'>
+                            <Form.Label>Movie Duration</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="text" 
+                                name='duration' 
+                                value={formData.duration}
+                                onChange = {movieChange} 
+                                placeholder="Duration" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId='formMovieEndDate'>
-                        <Form.Label>Movie End Date</Form.Label>
-                        <Form.Control required autoComplete='off'
-                            type="date" 
-                            name='movie_end_date' 
-                            value={formData.movie_end_date}
-                            onChange = {movieChange}  
-                            placeholder="End Date" />
-                    </Form.Group>
-            </Card.Body>
-            <Card.Footer>
-                <Button size="sm" variant="success" type="submit">
-                    <FontAwesomeIcon icon={faSave} /> Save
-                </Button>{' '}
-                <Button size="sm" variant="info" type="reset">
-                    <FontAwesomeIcon icon={faUndo} /> Reset
-                </Button>
-            </Card.Footer>
-        </Form>
-    </Card>
+                        <Form.Group className="mb-3" controlId='formMovieEndDate'>
+                            <Form.Label>Movie End Date</Form.Label>
+                            <Form.Control required autoComplete='off'
+                                type="date" 
+                                name='movie_end_date' 
+                                value={formData.movie_end_date}
+                                onChange = {movieChange}  
+                                placeholder="End Date" />
+                        </Form.Group>
+                </Card.Body>
+                <Card.Footer>
+                    <Button size="sm" variant="success" type="submit">
+                        <FontAwesomeIcon icon={faSave} /> Save
+                    </Button>{' '}
+                    <Button size="sm" variant="info" type="reset">
+                        <FontAwesomeIcon icon={faUndo} /> Reset
+                    </Button>
+                </Card.Footer>
+            </Form>
+        </Card>
+    </div>
   )
 }

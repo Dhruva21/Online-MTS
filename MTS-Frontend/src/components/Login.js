@@ -1,5 +1,5 @@
 import React, { useState,  useEffect } from 'react'
-import {Row, Col, Card, FormControl, Alert} from 'react-bootstrap';
+import {Row, Col, Card, FormControl, Alert, Toast} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, userSelector, clearState, setLoggedIn } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-
 function Login() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -58,43 +57,45 @@ function Login() {
         }
       }, [isError, isSuccess]);
   return (
-    <Row className="mt-5 justify-content-md-center">
-        <Col xs={8}>
-            {error && <Alert variant='danger'>{error}</Alert>}
-            <Card >
-                <Card.Header>
-                    <FontAwesomeIcon icon={faSignInAlt} />Login
-                </Card.Header>
-                <Card.Body>
-                
-                    <Form.Group className='mb-3' >
-                        <FormControl required autoComplete='off'
-                            type="email" 
-                            name='email'
-                            value={user.email}
-                            onChange = {handleCredential} 
-                            placeholder="Enter Email Address" />
-                    </Form.Group>
-                    <Form.Group className='mb-3' >
-                        <FormControl  required autoComplete='off'
-                            type="password" 
-                            name='password'
-                            value={user.password}
-                            onChange = {handleCredential} 
-                            placeholder="Enter password" />
-                    </Form.Group>
-                </Card.Body>
-                <Card.Footer style={{"text-align":"right"}}>
-                    <Button size='sm' type='button' variant='success' onClick={validateUser} disabled={user.email.length === 0 || user.password.length === 0}>
-                        <FontAwesomeIcon icon={faSignInAlt} />Login
-                    </Button>{' '}
-                    <Button size='sm' type='button' variant='info' disabled={user.email.length === 0 && user.password.length === 0} onClick={resertLoginForm}>
-                    <FontAwesomeIcon icon={faUndo} />Reset
-                    </Button>
-                </Card.Footer>
-            </Card>
-        </Col>
-    </Row>
+    <div>
+      <Row className="mt-5 justify-content-md-center">
+          <Col xs={8}>
+              {error && <Alert variant='danger'>{error}</Alert>}
+              <Card >
+                  <Card.Header>
+                      <FontAwesomeIcon icon={faSignInAlt} />Login
+                  </Card.Header>
+                  <Card.Body>
+                  
+                      <Form.Group className='mb-3' >
+                          <FormControl required autoComplete='off'
+                              type="email" 
+                              name='email'
+                              value={user.email}
+                              onChange = {handleCredential} 
+                              placeholder="Enter Email Address" />
+                      </Form.Group>
+                      <Form.Group className='mb-3' >
+                          <FormControl  required autoComplete='off'
+                              type="password" 
+                              name='password'
+                              value={user.password}
+                              onChange = {handleCredential} 
+                              placeholder="Enter password" />
+                      </Form.Group>
+                  </Card.Body>
+                  <Card.Footer style={{"text-align":"right"}}>
+                      <Button size='sm' type='button' variant='success' onClick={validateUser} disabled={user.email.length === 0 || user.password.length === 0}>
+                          <FontAwesomeIcon icon={faSignInAlt} />Login
+                      </Button>{' '}
+                      <Button size='sm' type='button' variant='info' disabled={user.email.length === 0 && user.password.length === 0} onClick={resertLoginForm}>
+                      <FontAwesomeIcon icon={faUndo} />Reset
+                      </Button>
+                  </Card.Footer>
+              </Card>
+          </Col>
+      </Row>
+    </div>
   )
 }
 
